@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>{{Alerta}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button (click)="AbrirAlerta()">{{nome}}</ion-button>
+  <ion-button (click)="AbrirAlerta2()">Modifique seu nome aqui</ion-button>
+  Seu nome: {{nome2}}
+
+  <!-- fab placed to the top end -->
+  <ion-fab vertical="center" horizontal="start" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="card"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon name="list"></ion-icon>
+
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

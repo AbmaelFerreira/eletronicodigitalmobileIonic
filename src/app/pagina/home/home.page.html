@@ -1,0 +1,27 @@
+<ion-header> 
+  <ion-menu-toggle id="menuId"></ion-menu-toggle>
+  <!-- <ion-toolbar color="danger">-->
+    <!-- <ion-menu-button slot="start"></ion-menu-button> -->
+   <!-- <ion-menu></ion-menu> -->
+  <!-- </ion-toolbar> -->
+</ion-header>
+
+<ion-content>
+
+  <ion-img src="/assets/img/slide-2.png"></ion-img>
+  <form>
+    <ion-item>
+      <ion-label stacked>E-mail</ion-label>
+      <ion-input [(ngModel)]="creds.email" name="email"  type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Senha</ion-label>
+      <ion-input [(ngModel)]="creds.senha" name="senha"  type="password"></ion-input>
+    </ion-item>
+
+    <ion-button (click)="login()" expand="block">Entrar</ion-button>
+    <ion-button expand="block" fill="outline">Registrar</ion-button>
+
+  </form>
+</ion-content>
