@@ -4,12 +4,15 @@ import { HttpClient } from '@angular/common/http';
 import { CredenciaisDTO } from './../models/credenciais.dto';
 import { Injectable } from "@angular/core";
 import { HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { LocalUser } from 'src/models/local_user';
+import { JwtHelperService  } from '@auth0/angular-jwt';
+
 
 @Injectable()
 export class AuthService{
+
+  jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor(private http: HttpClient, public storage: StorageService){ }
 
@@ -33,7 +36,8 @@ export class AuthService{
         let  tok = authorizationValue.substring(7);
         //let  tok = authorizationValue
         let user: LocalUser = {
-          token: tok
+          token: tok,
+          email: this.jwtHelper.decodeToken(tok).sub
         };
         this.storage.setLocalUser(user);
          
@@ -43,61 +47,3 @@ export class AuthService{
         this.storage.setLocalUser(null);
       }
 }
-
-
-
-
-
-    /*
-    
-    protected deductHeader() {
-      console.log(this.headers().get('Authorization'));
-        return {headers: this.hasToken() ? this.securityHeaders() : this.headers()};
-      }
-  
-      protected headers(): HttpHeaders {
-        return new HttpHeaders({
-          'Content-Type': 'application/json',
-         
-        });
-      }
-
-      protected securityHeaders(): HttpHeaders {
-        return new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': this.getToken()
-        });
-      }
-    
-    protected getCurrentUser() {
-        const ret = localStorage.getItem('currentUser');
-        if (ret) {
-          return JSON.parse(ret);
-        }
-    
-        return null;
-      }
-    
-     protected getToken(): string {
-        const currentUser = this.getCurrentUser();
-        if (currentUser) {
-          return currentUser.token;
-        }
-    
-        return null;
-      }
-    
-      hasToken(): boolean {
-        const jwt = this.getToken();
-    
-        return jwt != null && jwt !== '';
-      }
-
-    handleError(error: HttpErrorResponse){
-        let  errorObj = error.error;
-              
-        console.log(errorObj);
-        return throwError(errorObj);
-    }
-    
-    */

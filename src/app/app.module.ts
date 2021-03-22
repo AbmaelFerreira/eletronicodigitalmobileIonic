@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule
   ],
   providers: [
     StatusBar,
@@ -29,12 +31,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CategoriaService,
     StorageService,
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true
     },
-  AuthService,
+  
   ],
   bootstrap: [AppComponent]
 })
