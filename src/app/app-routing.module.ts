@@ -9,10 +9,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
     path: 'home',
     loadChildren: () => import('./pagina/home/home.module').then( m => m.HomePageModule)
   },
@@ -32,6 +28,10 @@ const routes: Routes = [
   {
     path: 'categorias',
     loadChildren: () => import('./pagina/categorias/categorias.module').then( m => m.CategoriasPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pagina/profile/profile.module').then( m => m.ProfilePageModule)
   }
 ];
 

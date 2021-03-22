@@ -14,17 +14,15 @@ export class AppComponent implements OnInit {
 
   public appPages = [
     
-    {
-      title: 'Primeiro Acesso',
-      url: '/login',
+     {
+      title: 'Profile',
+      url: '/profile',
       icon: 'card'
     },
-    {
-      
+     {
       title: 'Categorias',
       url: '/categorias',
       icon: 'card'
-      /*<ion-icon name="layers-outline"></ion-icon>*/
     },
     {
         title: 'Botao',
@@ -35,7 +33,7 @@ export class AppComponent implements OnInit {
       
         title: 'Lista',
         url: '/lista',
-        icon: 'radio-button-off'
+        icon: 'paper-plane'
       },
       
     {
@@ -43,18 +41,7 @@ export class AppComponent implements OnInit {
         title: 'Alerta',
         url: '/alertas',
         icon: 'card'
-      },
-    {
-      title: 'Cadastro NÃO EXISTE A PAGINA',
-      url: '/folder/Cadastro',
-      icon: 'paper-plane'
-    }
-    ,
-    {
-      title: 'PESQUISA Não existe ',
-      url: '/folder/Pesquisa',
-      icon: 'paper-plane'
-    }
+      }
   ];
 
   public listagens = ['Familia','Amigos', 'Irmãos'];
