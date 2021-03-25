@@ -1,3 +1,4 @@
+import { ClienteService } from './../services/domain/cliente.service';
 import { StorageService } from './../services/domain/storage.service';
 import { AuthService } from './../services/auth.service';
 import { ErrorInterceptor } from './../ineterceptor/error-interceptor';
@@ -32,6 +33,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     CategoriaService,
     StorageService,
     AuthService,
+    ClienteService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
