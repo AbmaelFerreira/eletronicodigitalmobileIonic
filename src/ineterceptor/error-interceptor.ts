@@ -23,7 +23,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       
      //const authToken = this.auth.authenticate;
 
-        console.log("Passou pelo interceptor");
         //console.log(authToken);
         
         return next.handle(req)        

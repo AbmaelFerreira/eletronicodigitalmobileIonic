@@ -16,12 +16,12 @@ import { ClienteDTO } from 'src/models/cliente.dto';
 
         findByEmail(email: string) : Observable<ClienteDTO> {
 
-            let token = this.storage.getLocalUser().token;
-            let authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
+           // let token = this.storage.getLocalUser().token;
+           // let authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
 
             return this.http.get<ClienteDTO>(
-                `${API_CONFIG.baseURl}/clientes/email?value=${email}`,
-                {'headers': authHeader});
+                `${API_CONFIG.baseURl}/clientes/email?value=${email}` //,{'headers': authHeader}
+                );
         }
 
 

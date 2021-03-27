@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthInterceptorProvider } from 'src/ineterceptor/auth-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     StorageService,
     AuthService,
     ClienteService,
+    AuthInterceptorProvider,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
