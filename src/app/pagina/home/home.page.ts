@@ -30,7 +30,7 @@ import { Component, OnInit } from '@angular/core';
     
      this.auth.succesFullLogin(response.headers.get("Authorization"));
 
-      this.nav.navigateForward('/categorias');
+      this.nav.navigateForward('/profile');
     },
       error => {console.log(error)}
     )
