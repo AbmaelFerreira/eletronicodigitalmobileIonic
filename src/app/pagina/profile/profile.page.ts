@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { API_CONFIG } from './../../../config/api.config';
 import { ClienteService } from './../../../services/domain/cliente.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,19 +17,27 @@ export class ProfilePage implements OnInit {
 
   constructor(
       public storage: StorageService,
-      public clienteService: ClienteService
+      public clienteService: ClienteService,
+      public nav: NavController
       ) { }
 
   ngOnInit() {
     let localUser = this.storage.getLocalUser();
-    if(localUser && localUser.email){
+    if(localUser && localUser.email) {
       //this.email = localUser.email;
       this.clienteService.findByEmail(localUser.email)
         .subscribe(response =>{
           this.cliente = response;
           this.getImageIfExists();
         },
-        error =>{});
+        error =>{
+          if(error.status == 403){
+            this.nav.navigateForward('/home');
+          }
+        });
+    }
+    else{
+      this.nav.navigateForward('/home');
     }
   }
   
