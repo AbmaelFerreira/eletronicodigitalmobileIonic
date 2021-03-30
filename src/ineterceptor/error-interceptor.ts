@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 import {  Observable} from "rxjs/Rx";
 import { AuthService } from 'src/services/auth.service';
 import { throwError } from 'rxjs/internal/observable/throwError';
+import { AlertController } from '@ionic/angular';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -12,7 +13,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(
        // Era utilizado para mostrar o 66984611494
        // public auth: AuthService,
-        public storage: StorageService
+        public storage: StorageService,
+        public alertController: AlertController
         
     ) {}
 
@@ -42,15 +44,59 @@ export class ErrorInterceptor implements HttpInterceptor {
                             console.error(errorObj);
 
                             switch(errorObj.status){
+
+                                case 401:
+                                    this.handler401();
+                                    break;
+
                                 case 403:
                                     this.handler403();
                                     break;
+                                    default:
+                                this.handlerDefaultError(errorObj);
+
                             }
 
-                            return Observable.throwError(errorObj);
+                            //return Observable.throwError(errorObj);
+                            return this.handleError(errorObj);
                 })
             ) as any;
         }
+
+        
+            async handlerDefaultError(errorObj){
+                const alert = await this.alertController.create({
+    
+                    cssClass: 'my-custom-class',
+                    header: 'Erro '+ errorObj.status + ':' + errorObj.error,
+                    subHeader: 'Error',
+                    message: errorObj.message,
+                    backdropDismiss: false,
+                    buttons: [
+                                {text:'OK'}
+                            ]
+    
+            });
+    
+            alert.present();
+        }
+
+        async handler401(){
+            const alert = await this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: 'Erro 401: Falha de autenticação',
+                subHeader: 'Error',
+                message: 'Email ou senha incorretos.',
+                backdropDismiss: false,
+                buttons: [
+                           {text:'OK'}
+                         ]
+            });
+     
+                 alert.present();
+            }
+     
+        
         handler403(){
             this.storage.setLocalUser(null);
         }
