@@ -30,6 +30,15 @@ export class AuthService{
 
         }))
       }
+      
+  refreshToken() {
+        return this.http.post(
+            `${API_CONFIG.baseURl}/auth/refresh_token`,
+            {},
+            { observe: 'response',  responseType: 'text' }
+        )
+       }
+    
 
       succesFullLogin(authorizationValue: string){
 

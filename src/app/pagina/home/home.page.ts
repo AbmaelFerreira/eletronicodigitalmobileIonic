@@ -39,8 +39,20 @@ import { Component, OnInit } from '@angular/core';
       this.menu.enable(false);
       
     }
+
+
     ionViewDidLeave() {
       this.menu.enable(true);
+    }
+
+    ionViewDidEnter() {
+      this.auth.refreshToken()
+      .subscribe(response => { 
+       this.auth.succesFullLogin(response.headers.get("Authorization"));
+        this.nav.navigateForward('/categorias');
+      },
+        error => {console.log(error)}
+      )
     }
 
   ngOnInit() {
