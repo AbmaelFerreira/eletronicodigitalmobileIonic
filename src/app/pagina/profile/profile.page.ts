@@ -1,4 +1,4 @@
-import { NavController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { API_CONFIG } from './../../../config/api.config';
 import { ClienteService } from './../../../services/domain/cliente.service';
 import { Component, OnInit } from '@angular/core';
@@ -18,8 +18,13 @@ export class ProfilePage implements OnInit {
   constructor(
       public storage: StorageService,
       public clienteService: ClienteService,
+      public menu: MenuController, 
       public nav: NavController
       ) { }
+
+      ionViewWillEnter() {
+        this.menu.enable(true);
+      }
 
   ngOnInit() {
     let localUser = this.storage.getLocalUser();

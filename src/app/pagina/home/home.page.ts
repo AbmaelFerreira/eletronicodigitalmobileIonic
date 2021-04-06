@@ -35,15 +35,16 @@ import { Component, OnInit } from '@angular/core';
       error => {console.log(error)}
     )
   }
+  
     ionViewWillEnter() {
       this.menu.enable(false);
+    }
+
+    // ionViewDidLeave() {
       
-    }
-
-
-    ionViewDidLeave() {
-      this.menu.enable(true);
-    }
+    //     this.menu.enable(true);
+      
+    // }
 
     ionViewDidEnter() {
       this.auth.refreshToken()
@@ -54,7 +55,6 @@ import { Component, OnInit } from '@angular/core';
         error => {console.log(error)}
       )
     }
-
   ngOnInit() {
   }
 }
