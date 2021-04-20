@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptorProvider } from 'src/ineterceptor/auth-interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { AuthInterceptorProvider } from 'src/ineterceptor/auth-interceptor';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     JwtModule
   ],
   providers: [
