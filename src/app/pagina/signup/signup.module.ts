@@ -1,11 +1,10 @@
+import { EstadoService } from './../../../services/domain/estado.service';
+import { CidadeService } from './../../../services/domain/cidade.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { SignupPageRoutingModule } from './signup-routing.module';
-
 import { SignupPage } from './signup.page';
 
 @NgModule({
@@ -14,9 +13,12 @@ import { SignupPage } from './signup.page';
     FormsModule,
     IonicModule,
     SignupPageRoutingModule,
-    
-  ReactiveFormsModule
+    ReactiveFormsModule
   ],
-  declarations: [SignupPage]
+  declarations: [SignupPage],
+  providers: [
+    CidadeService, 
+    EstadoService
+  ]
 })
 export class SignupPageModule {}

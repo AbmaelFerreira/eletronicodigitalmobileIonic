@@ -1,6 +1,10 @@
+import { CidadeDTO } from './../../../models/cidade.dto';
+import { EstadoService } from './../../../services/domain/estado.service';
+import { CidadeService } from './../../../services/domain/cidade.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
+import { EstadoDTO } from 'src/models/estado.dto';
 
 @Component({
   selector: 'app-signup',
@@ -9,23 +13,22 @@ import { MenuController } from '@ionic/angular';
 })
 export class SignupPage implements OnInit {
 
-  form:FormGroup;
+  formGroup:FormGroup;
+  estados: EstadoDTO[];
+  cidades: CidadeDTO[]; 
 
    
 
-  constructor(public menu: MenuController, private formBuilder: FormBuilder) {
-     
-  }
+  constructor(
+    private formBuilder: FormBuilder,
+    public cidadeService: CidadeService,
+    public estadoService: EstadoService) { }
 
-  openFirst() {
-    this.menu.enable(false, 'first');
-    this.menu.open('first');
-  }
-   
+ 
 
   ngOnInit() {
 
-    this.form = this.formBuilder.group ({
+    this.formGroup = this.formBuilder.group ({
       nome: new FormControl('', [Validators.minLength(20), Validators.required, Validators.minLength(5)]),
       email: new FormControl('abmael100@gmail.com',[Validators.required, Validators.email]),
       tipo: new FormControl('1',[Validators.required]),
@@ -39,8 +42,48 @@ export class SignupPage implements OnInit {
       telefone1: new FormControl('65992250724',[Validators.required]),
       telefone2:new FormControl('',[Validators.required]),
       telefone3:new FormControl('',[Validators.required]),
-      estadoId: new FormControl(null,[Validators.required]),
-      cidadeId:new FormControl(null,[Validators.required])
+      estadoId: new FormControl([Validators.required]),
+      cidadeId:new FormControl([Validators.required])
   });
+
+
+  this.estadoService.findAll()
+      .subscribe(response => {
+        this.estados = response;
+        this.formGroup.controls.estadoId.setValue(this.estados[0].id);
+           if (this.estados[0].id) {
+                this.updateCidades();
+            }
+      },
+    error => { });
+
   }
+/*
+  ionViewDidLoad(){
+      this.estadoService.findAll()
+      .subscribe(
+        response => {
+          this.estados = response;
+          console.log(response);
+          console.log(this.estados);
+          this.formGroup.controls.estadoId.setValue(this.estados[0].id);
+          this.updateCidades();
+        },
+        error => {});
+  } 
+  */
+  updateCidades() {
+
+    let estado_id = this.formGroup.value.estadoId;
+    this.cidadeService.findAll(estado_id)
+    .subscribe(
+      response => {
+        this.cidades = response;
+        this.formGroup.controls.cidadeId.setValue(null);
+      },
+    
+      error => {}
+    );
+  }
+  
 }
