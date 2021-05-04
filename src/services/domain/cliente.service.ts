@@ -30,4 +30,16 @@ import { ClienteDTO } from 'src/models/cliente.dto';
             return this.http.get(url, {responseType : 'blob'});
             
         }
+
+        insert(obj: ClienteDTO){
+            return this.http.post(
+                `${API_CONFIG.baseURl}/clientes`,
+                obj,
+                {
+                    observe:'response',
+                    responseType: 'text'
+                }
+            )
+
+        }
 }

@@ -1,3 +1,4 @@
+import { FieldMessage } from './../models/fieldmessage';
 import { StorageService } from './../services/domain/storage.service';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -52,6 +53,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                                 case 403:
                                     this.handler403();
                                     break;
+
+                                case 422:
+                                    this.handler422(errorObj);
+                                    break;
+                                    
                                     default:
                                 this.handlerDefaultError(errorObj);
 
@@ -81,7 +87,8 @@ export class ErrorInterceptor implements HttpInterceptor {
             alert.present();
         }
 
-        async handler401(){
+        async handler401() {
+            
             const alert = await this.alertController.create({
                 cssClass: 'my-custom-class',
                 header: 'Erro 401: Falha de autenticação',
@@ -95,10 +102,36 @@ export class ErrorInterceptor implements HttpInterceptor {
      
                  alert.present();
             }
+
+
+        async handler422(errorObj){
+
+            const alert = await this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: 'Erro 422: Error de validação',
+                subHeader: 'Error 422',
+                message: this.listErrors(errorObj.errors),
+                backdropDismiss: false,
+                buttons: [
+                           {text:'OK'}
+                         ]
+            });
+     
+                 alert.present();
+
+            }
      
         
         handler403(){
             this.storage.setLocalUser(null);
+        }
+
+        private listErrors(messages : FieldMessage[]): string {
+            let s: string = '';
+            for(var i=0; i<messages.length;i++){
+                s =s+ '<p><strong>'+ messages[i].fieldName + "</strong>: "+ messages[i].message + '</p>'
+            }
+            return s;
         }
     }
 

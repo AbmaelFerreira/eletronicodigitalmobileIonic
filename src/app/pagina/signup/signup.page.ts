@@ -1,9 +1,10 @@
+import { ClienteService } from './../../../services/domain/cliente.service';
 import { CidadeDTO } from './../../../models/cidade.dto';
 import { EstadoService } from './../../../services/domain/estado.service';
 import { CidadeService } from './../../../services/domain/cidade.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MenuController } from '@ionic/angular';
+import { MenuController, AlertController, NavController } from '@ionic/angular';
 import { EstadoDTO } from 'src/models/estado.dto';
 
 @Component({
@@ -22,7 +23,10 @@ export class SignupPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public cidadeService: CidadeService,
-    public estadoService: EstadoService) { }
+    public estadoService: EstadoService,
+    public clienteService: ClienteService,
+    public alertCtrl: AlertController,
+    public navController:NavController) { }
 
  
 
@@ -40,10 +44,10 @@ export class SignupPage implements OnInit {
       bairro: new FormControl('Copacabana',[]),
       cep: new FormControl('78120460',[Validators.required]),
       telefone1: new FormControl('65992250724',[Validators.required]),
-      telefone2:new FormControl(''), // retirar o requerido e commitar
-      telefone3:new FormControl(''), // retirar o requerido e commitar
-      estadoId: new FormControl(null,[Validators.required]),
-      cidadeId:new FormControl(null,[Validators.required])
+      telefone2:new FormControl(''), 
+      telefone3:new FormControl(''), 
+      estadoId: new FormControl([Validators.required]),
+      cidadeId:new FormControl([Validators.required])
   });
 
 
@@ -84,6 +88,36 @@ export class SignupPage implements OnInit {
     
       error => {}
     );
+  }
+
+  signupUser(){
+
+    this.clienteService.insert(this.formGroup.value)
+    .subscribe(response =>{
+      this.showInsertOK();
+    },
+    error =>{
+
+    });
+  }
+
+  async showInsertOK(){
+    let alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Sucesso',
+      subHeader: 'Cadastro',
+      message: 'Cadastro efetuado com sucesso.',
+      backdropDismiss: false,
+      buttons: [
+                 {
+                    text:'OK',
+                    handler:() =>{
+                      this.navController.pop();
+                    }
+                 }
+               ]
+    });
+     alert.present();
   }
   
 }
