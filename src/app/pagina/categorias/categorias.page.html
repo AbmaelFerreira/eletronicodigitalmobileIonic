@@ -7,8 +7,9 @@
   
 </ion-header>
 
+
   <ion-content padding>
-    <ion-list *ngFor="let item of itens" >
+    <ion-list *ngFor="let item of itens" expand="block" fill="outline"   [routerLink]="['/produtos']"routerdirection="forward" > <!--[routerLink]="['/signup']"  (click)="showProdutos()"--> 
 
       <ion-item>
         <ion-thumbnail slot="end">
@@ -19,7 +20,7 @@
     </ion-list>
   
     <!--Caso queira uma lista com cards-->
-    <ion-card *ngFor="let item of itens">
+    <ion-card *ngFor="let item of itens" >
       
       <ion-card-header color="primary">
         <ion-card-title>{{item.id}}</ion-card-title>

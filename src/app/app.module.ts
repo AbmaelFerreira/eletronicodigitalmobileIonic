@@ -1,3 +1,4 @@
+import { ProdutosPage } from './pagina/produtos/produtos.page';
 import { ClienteService } from './../services/domain/cliente.service';
 import { StorageService } from './../services/domain/storage.service';
 import { AuthService } from './../services/auth.service';
@@ -37,6 +38,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     StorageService,
     AuthService,
     ClienteService,
+    ProdutosPage,
     AuthInterceptorProvider,
     {
       provide: HTTP_INTERCEPTORS,

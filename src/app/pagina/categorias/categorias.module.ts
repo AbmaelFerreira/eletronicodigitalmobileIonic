@@ -1,3 +1,4 @@
+import { ProdutosPage } from './../produtos/produtos.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,9 @@ import { CategoriasPage } from './categorias.page';
     IonicModule,
     CategoriasPageRoutingModule
   ],
-  declarations: [CategoriasPage]
+  declarations: [CategoriasPage],
+  providers:[
+    ProdutosPage
+  ]
 })
 export class CategoriasPageModule {}
