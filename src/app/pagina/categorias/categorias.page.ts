@@ -1,7 +1,6 @@
 import { CategoriaDTO } from './../../../models/categoria.dto';
 import { CategoriaService } from './../../../services/domain/categoria.service';
 import { Component, OnInit } from '@angular/core';
-import { MenuController, NavController } from '@ionic/angular';
 import { API_CONFIG } from 'src/config/api.config';
 import { Router } from '@angular/router';
 
@@ -18,7 +17,7 @@ export class CategoriasPage implements OnInit {
   itens:CategoriaDTO[];
 
   constructor(
-    public navCtrl:NavController,
+   
     public categoriaService: CategoriaService,
     private router: Router) { 
   }
@@ -37,9 +36,13 @@ export class CategoriasPage implements OnInit {
         });
     }
 
-    showProdutos(){
-      // this.navCtrl.push('ProdutosPage');
-      //this.navCtrl.navigateForward('/produtos');
-       this.router.navigate(['/produtos'])
+    showProdutos(categoria_id: string){
+      
+      let data = JSON.stringify(categoria_id);
+      this.router.navigate(['produtos',{data} ]);
+       
+       //this.router.navigate(['/produtos', {categoria_id: categoria_id}])
+       
+      
     }
 }

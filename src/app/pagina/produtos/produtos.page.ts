@@ -1,6 +1,7 @@
-import { NavController, NavParams } from '@ionic/angular';
+import { ProdutoService } from './../../../services/domain/produto.service';
 import { ProdutoDTO } from './../../../models/produto.dto';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-produtos',
@@ -9,11 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProdutosPage implements OnInit {
 
+ 
   items: ProdutoDTO[];
 
   constructor(
-    public navCTL: NavController,
-    // public navParams: NavParams
+   
+    private activateRoute: ActivatedRoute,
+    public produtoService: ProdutoService
   ) { }
 
   ionViewDidLoad(){
@@ -22,7 +25,25 @@ export class ProdutosPage implements OnInit {
 }
 
   ngOnInit() {
-    this.items = [
+
+     /*  
+    
+    this.router.params.subscribe((categoria_id:any) =>{ this.categoria_id = categoria_id['id']; })
+    
+    
+    this.produtoService.findByCategoria(this.categoria_id).subscribe(response =>{this.items = response['content'];}, 
+    */
+    let categoria_id = this.activateRoute.snapshot.paramMap.get('data');
+    this.produtoService.findByCategoria(categoria_id)
+    .subscribe(response => {
+      this.items = response['content'];
+    },
+    
+    error =>{
+
+      });
+
+    /*this.items = [
       {
           id:"1",
           nome:"Mouse",
@@ -35,7 +56,7 @@ export class ProdutosPage implements OnInit {
           preco:100.90
   
       }
-    ]
+    ]*/
     
   }
 
