@@ -3,7 +3,6 @@ import { API_CONFIG } from './../../config/api.config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-
 @Injectable()
 export class ProdutoService {
 
@@ -11,5 +10,12 @@ export class ProdutoService {
 
     findByCategoria(categoria_id: string){
         return this.http.get(`${API_CONFIG.baseURl}/produtos/?categorias=${categoria_id}`);
+    }
+
+    getSmallImageFromBucket(id: string) : Observable<any> {
+
+        let url =`${API_CONFIG.backetBaseUrl}/prod${id}-small.jpg`;
+
+        return this.http.get(url, {responseType : 'blob'});
     }
 }
