@@ -9,17 +9,21 @@
 
 
   <ion-content padding>
+        
+
+       
     <ion-list *ngFor="let item of itens" expand="block" fill="outline"  (click)="showProdutos(item.id)"   > <!--[routerLink]="['/signup']"  (click)="showProdutos()"  [routerLink]="['/produtos']"routerdirection="forward"         --> 
 
       <ion-item>
         <ion-thumbnail slot="end">
           <img src="{{bucketUrl}}/cat{{item.id}}.jpg">  <!--Duas Interpolação-->
         </ion-thumbnail>
-        {{item.nome}}   <!--Interpolação-->
+        <ion-label>{{item.nome}}</ion-label><!--Interpolação-->
+     
       </ion-item>
     </ion-list>
   
-    <!--Caso queira uma lista com cards-->
+    <!--Caso queira uma lista com cards
     <ion-card *ngFor="let item of itens" >
       
       <ion-card-header color="primary">
@@ -30,4 +34,5 @@
          {{item.nome}}
       </ion-card-content>
     </ion-card>
+    -->
 </ion-content>

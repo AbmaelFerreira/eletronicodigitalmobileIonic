@@ -1,3 +1,4 @@
+import { CartService } from './../services/domain/cart.service';
 import { ProdutoService } from './../services/domain/produto.service';
 import { ProdutosPage } from './pagina/produtos/produtos.page';
 import { ClienteService } from './../services/domain/cliente.service';
@@ -46,7 +47,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       useClass: ErrorInterceptor,
       multi: true
     },
-    ProdutoService
+    ProdutoService,
+    CartService
   
   ],
   bootstrap: [AppComponent]
