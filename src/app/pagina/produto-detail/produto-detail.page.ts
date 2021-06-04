@@ -47,6 +47,7 @@ export class ProdutoDetailPage implements OnInit {
 
   addToCart(produto: ProdutoDTO){
     this.cartService.addProduto(produto);
+   
     this.router.navigate(['cart']);
   }
 }
