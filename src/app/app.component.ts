@@ -42,6 +42,14 @@ export class AppComponent implements OnInit {
         title: 'Alerta',
         url: '/alertas',
         icon: 'card'
+      
+      },
+      
+    {
+      
+        title: 'cart',
+        url: '/cart',
+        icon: 'card'
       }
   ];
 
