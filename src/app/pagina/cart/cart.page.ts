@@ -13,15 +13,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
-  
+
   items: CartItem[];
 
   constructor(
     public storage: StorageService,
     public produtoService: ProdutoService,
-    public cartService:CartService,
-    private router: Router)
-     { }
+    public cartService: CartService,
+    private router: Router) { }
 
   ngOnInit() {
     //let cart = this.storage.getCart();
@@ -32,33 +31,38 @@ export class CartPage implements OnInit {
   }
 
   loadImageUrls() {
-    for(var i=0; i<this.items.length; i++ ){
+    for (var i = 0; i < this.items.length; i++) {
       let item = this.items[i];
       this.produtoService.getSmallImageFromBucket(item.produto.id)
-        .subscribe(response =>{
-            item.produto.imageUrl = `${API_CONFIG.backetBaseUrl}/prod${item.produto.id}-small.jpg`;
+        .subscribe(response => {
+          item.produto.imageUrl = `${API_CONFIG.backetBaseUrl}/prod${item.produto.id}-small.jpg`;
         },
-        error =>{});
+          error => { });
     }
   }
 
-  removeItem(produto: ProdutoDTO){
+  removeItem(produto: ProdutoDTO) {
     this.items = this.cartService.removeProduto(produto).items;
   }
 
-  increaseQuantity(produto: ProdutoDTO){
+  increaseQuantity(produto: ProdutoDTO) {
     this.items = this.cartService.increaseQuantity(produto).items;
   }
 
-  decreaseQuantity(produto: ProdutoDTO){
+  decreaseQuantity(produto: ProdutoDTO) {
     this.items = this.cartService.decreaseQuantity(produto).items;
   }
 
-  total() : number {
+  total(): number {
     return this.cartService.total();
   }
 
-  goOn(){
+  goOn() {
     this.router.navigate(['categorias']);
   }
+
+  checkout() {
+    this.router.navigate(['pick-address']);
+  }
+
 }
