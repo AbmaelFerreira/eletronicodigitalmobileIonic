@@ -5,41 +5,41 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { ClienteDTO } from 'src/models/cliente.dto';
 
-    @Injectable()
-    export class ClienteService{
-        constructor(
-            public http: HttpClient,
-            public storage: StorageService
-            ){
+@Injectable()
+export class ClienteService {
+    constructor(
+        public http: HttpClient,
+        public storage: StorageService
+    ) {
 
-        }
+    }
 
-        findByEmail(email: string) : Observable<ClienteDTO> {
+    findByEmail(email: string) {
 
-           // let token = this.storage.getLocalUser().token;
-           // let authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
+        // let token = this.storage.getLocalUser().token;
+        // let authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
 
-            return this.http.get<ClienteDTO>(
-                `${API_CONFIG.baseURl}/clientes/email?value=${email}` //,{'headers': authHeader}
-                );
-        }
+        return this.http.get(
+            `${API_CONFIG.baseURl}/clientes/email?value=${email}` //,{'headers': authHeader}
+        );
+    }
 
 
-        getImageFromBucket(id: string) : Observable<any>{
-            let url = `${API_CONFIG.backetBaseUrl}/cp${id}.jpg`
-            return this.http.get(url, {responseType : 'blob'});
-            
-        }
+    getImageFromBucket(id: string): Observable<any> {
+        let url = `${API_CONFIG.backetBaseUrl}/cp${id}.jpg`
+        return this.http.get(url, { responseType: 'blob' });
 
-        insert(obj: ClienteDTO){
-            return this.http.post(
-                `${API_CONFIG.baseURl}/clientes`,
-                obj,
-                {
-                    observe:'response',
-                    responseType: 'text'
-                }
-            )
+    }
 
-        }
+    insert(obj: ClienteDTO) {
+        return this.http.post(
+            `${API_CONFIG.baseURl}/clientes`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        )
+
+    }
 }
