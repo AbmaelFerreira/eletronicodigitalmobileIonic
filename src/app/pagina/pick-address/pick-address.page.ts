@@ -1,3 +1,5 @@
+import { CartService } from './../../../services/domain/cart.service';
+import { PedidoDTO } from './../../../models/pedido.dto';
 import { ClienteService } from './../../../services/domain/cliente.service';
 import { StorageService } from './../../../services/domain/storage.service';
 import { EnderecoDTO } from './../../../models/endereco.dto';
@@ -13,10 +15,13 @@ export class PickAddressPage implements OnInit {
 
   items: EnderecoDTO[];
 
+  pedido: PedidoDTO;
+
   constructor(
     public storage: StorageService,
     public clienteService: ClienteService,
-    public nav: NavController
+    public nav: NavController,
+    public cartService: CartService
 
   ) { }
 
@@ -25,7 +30,17 @@ export class PickAddressPage implements OnInit {
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
-          this.items = response['enderecos']
+          this.items = response['enderecos'];
+
+          let cart = this.cartService.getCart();
+
+          this.pedido = {
+            cliente: { id: response['id'] },
+            enderecoDeEntrega: null,
+            pagamento: null,
+            items: cart.items.map(x => { return { quantidade: x.quantidade, produto: { id: x.produto.id } } })
+
+          }
 
         },
           error => {
@@ -38,4 +53,10 @@ export class PickAddressPage implements OnInit {
       this.nav.navigateForward('/home');
     }
   }
+
+  nextPage(item: EnderecoDTO) {
+    this.pedido.enderecoDeEntrega = { id: item.id };
+    console.log(this.pedido);
+  }
+
 }
