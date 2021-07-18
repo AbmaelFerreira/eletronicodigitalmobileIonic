@@ -11,53 +11,52 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ProdutosPage implements OnInit {
 
- 
+
   items: ProdutoDTO[];
 
   constructor(
-   
+
     private activateRoute: ActivatedRoute,
     public produtoService: ProdutoService,
     private router: Router
   ) { }
 
-  ionViewDidLoad(){
+  ionViewDidLoad() {
 
-    
-}
+  }
 
   ngOnInit() {
 
-    
+
     let categoria_id = this.activateRoute.snapshot.paramMap.get('data');
 
     this.produtoService.findByCategoria(categoria_id)
       .subscribe(response => {
         this.items = response['content'];
         this.loadImageUrls();
-    },
-        error =>{
+      },
+        error => {
 
-    });
+        });
   }
 
   loadImageUrls() {
-    for(var i=0; i<this.items.length; i++ ){
+    for (var i = 0; i < this.items.length; i++) {
       let item = this.items[i];
       this.produtoService.getSmallImageFromBucket(item.id)
-        .subscribe(response =>{
-            item.imageUrl = `${API_CONFIG.backetBaseUrl}/prod${item.id}-small.jpg`;
+        .subscribe(response => {
+          item.imageUrl = `${API_CONFIG.backetBaseUrl}/prod${item.id}-small.jpg`;
         },
-        error =>{});
+          error => { });
     }
   }
 
-  showDetail(produto_id: string){
+  showDetail(produto_id: string) {
 
-   let detailData = JSON.stringify(produto_id);
+    let detailData = JSON.stringify(produto_id);
 
-    this.router.navigate(['produto-detail', {detailData }]);
-    
-    
+    this.router.navigate(['produto-detail', { detailData }]);
+
+
   }
 }

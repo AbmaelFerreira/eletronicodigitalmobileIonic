@@ -14,41 +14,41 @@ export class CategoriasPage implements OnInit {
 
   bucketUrl: string = API_CONFIG.backetBaseUrl;
 
-  itens:CategoriaDTO[];
+  itens: CategoriaDTO[];
 
   constructor(
-   
+
     public categoriaService: CategoriaService,
-    
+
     public menu: MenuController,
-    private router: Router) { 
+    private router: Router) {
   }
 
   ionViewWillEnter() {
     this.menu.enable(true);
   }
 
-  ionViewDidLoad(){
-    
- }
+  ionViewDidLoad() {
 
- ngOnInit() {
-     this.categoriaService.findAll()
-        .subscribe(response => {
-          this.itens = response;
- },
+  }
+
+  ngOnInit() {
+    this.categoriaService.findAll()
+      .subscribe(response => {
+        this.itens = response;
+      },
         error => {
           // console.log('error ocorrido', error);
         });
-}
+  }
 
-    showProdutos(categoria_id: string){
-      
-      let data = JSON.stringify(categoria_id);
-      this.router.navigate(['produtos',{data} ]);
-       
-       //this.router.navigate(['/produtos', {categoria_id: categoria_id}])
-       
-      
-    }
+  showProdutos(categoria_id: string) {
+
+    let data = JSON.stringify(categoria_id);
+    this.router.navigate(['produtos', { data }]);
+
+    //this.router.navigate(['/produtos', {categoria_id: categoria_id}])
+
+
+  }
 }

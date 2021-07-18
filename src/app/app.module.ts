@@ -16,13 +16,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptorProvider } from 'src/ineterceptor/auth-interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PaymentPage } from './pagina/payment/payment.page';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PaymentPage],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -49,8 +50,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     },
     ProdutoService,
     CartService
-  
+
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

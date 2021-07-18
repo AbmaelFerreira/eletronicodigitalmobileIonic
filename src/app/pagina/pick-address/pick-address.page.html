@@ -1,5 +1,5 @@
 <ion-header>
-  
+
   <ion-toolbar color="primary">
     <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>Fechamento de Pedidos</ion-title>
@@ -8,22 +8,25 @@
 </ion-header>
 
 
-<ion-content >
-   
-<ion-list  expand="block" fill="outline" > 
-  <ion-list-header>
-    <h1> Selecione um endereço</h1>
-  </ion-list-header>
+<ion-content>
 
-  <button fill="outline"  *ngFor="let item of items" (click)="nextPage(item)" >
-    <h3>{{item.logradouro}},  {{item.numero}} </h3><!--Interpolação--> 
-    {{item.complemento}},  {{item.bairro}} <!--Interpolação--> 
-    {{item.cidade.nome}},  {{item.cidade.estado.nome}}<!--Interpolação--> 
-  </button>
+  <ion-list expand="block" fill="outline">
+    <ion-list-header>
+      <h1> Selecione um endereço</h1>
+    </ion-list-header>
 
-</ion-list>
+    <button fill="outline" *ngFor="let item of items" (click)="nextPage(item)">
+      <h3>{{item.logradouro}}, {{item.numero}} </h3>
+      <!--Interpolação-->
+      {{item.complemento}}, {{item.bairro}}
+      <!--Interpolação-->
+      {{item.cidade.nome}}, {{item.cidade.estado.nome}}
+      <!--Interpolação-->
+    </button>
 
-<!--Caso queira uma lista com cards
+  </ion-list>
+
+  <!--Caso queira uma lista com cards
 <ion-card *ngFor="let item of itens" >
   
   <ion-card-header color="primary">
