@@ -1,7 +1,7 @@
 import { PedidoDTO } from './../../../models/pedido.dto';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -18,8 +18,8 @@ export class PaymentPage implements OnInit {
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
-    // private router: Router,
+    private formBuilder: FormBuilder,
+    private router: Router,
     // public navParams: NavParams
 
   ) {
@@ -40,6 +40,10 @@ export class PaymentPage implements OnInit {
 
   nextPage() {
     this.pedido.pagamento = this.formGroup.value;
+
+    let pedidoD = JSON.stringify(this.pedido)
+
+    this.router.navigate(['order-confirmation', { pedido: pedidoD }]);
     console.log(this.pedido);
   }
 
