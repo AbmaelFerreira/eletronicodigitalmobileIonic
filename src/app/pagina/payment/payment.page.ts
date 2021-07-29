@@ -24,7 +24,6 @@ export class PaymentPage implements OnInit {
 
   ) {
 
-
     this.pedido = JSON.parse(this.activateRoute.snapshot.paramMap.get('pedido'));
 
 
@@ -46,5 +45,4 @@ export class PaymentPage implements OnInit {
     this.router.navigate(['order-confirmation', { pedido: pedidoD }]);
     console.log(this.pedido);
   }
-
 }

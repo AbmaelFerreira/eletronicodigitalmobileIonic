@@ -62,7 +62,7 @@
     Continuar comprando
   </ion-button>
 
-  <ion-button fill="solid" (click)="checkout()"  color="secondary" expand="full">
+  <ion-button *ngIf="total() > 0" fill="solid" (click)="checkout()" color="secondary" expand="full">
     Finalizar pedido
   </ion-button>
 

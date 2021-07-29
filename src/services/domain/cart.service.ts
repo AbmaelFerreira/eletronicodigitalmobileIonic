@@ -5,7 +5,7 @@ import { Cart } from '../../models/cart';
 
 @Injectable()
 export class CartService {
-        
+
     constructor(public storage: StorageService) { }
 
     createOrClearCart(): Cart {
@@ -24,7 +24,7 @@ export class CartService {
 
     addProduto(produto: ProdutoDTO): Cart {
 
-        let cart = this.getCart();  
+        let cart = this.getCart();
         let position = cart.items.findIndex(x => x.produto.id == produto.id);
         if (position == -1) {
             cart.items.push({ quantidade: 1, produto: produto });
@@ -42,9 +42,9 @@ export class CartService {
         this.storage.setCart(cart);
         return cart;
     }
-   
+
     increaseQuantity(produto: ProdutoDTO): Cart {
- 
+
         let cart = this.getCart();
         let position = cart.items.findIndex(x => x.produto.id == produto.id)
         if (position != -1) {
@@ -53,24 +53,25 @@ export class CartService {
         this.storage.setCart(cart);
         return cart;
     }
+
     decreaseQuantity(produto: ProdutoDTO): Cart {
- 
+
         let cart = this.getCart();
         let position = cart.items.findIndex(x => x.produto.id == produto.id)
         if (position != -1) {
             cart.items[position].quantidade--;
-            if(cart.items[position].quantidade < 1){
+            if (cart.items[position].quantidade < 1) {
                 cart = this.removeProduto(produto);
             }
         }
         this.storage.setCart(cart);
         return cart;
     }
-    
-    total() : number{
+
+    total(): number {
         let cart = this.getCart();
         let sum = 0;
-        for(var i=0; i<cart.items.length; i++){
+        for (var i = 0; i < cart.items.length; i++) {
             sum = sum + cart.items[i].produto.preco * cart.items[i].quantidade;
         }
         return sum;

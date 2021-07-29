@@ -1,3 +1,4 @@
+import { PedidoService } from './../../../services/domain/pedido-service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,9 @@ import { OrderConfirmationPage } from './order-confirmation.page';
     IonicModule,
     OrderConfirmationPageRoutingModule
   ],
+  providers: [
+    PedidoService
+  ],
   declarations: [OrderConfirmationPage]
 })
-export class OrderConfirmationPageModule {}
+export class OrderConfirmationPageModule { }

@@ -15,14 +15,21 @@
       <h1> Selecione um endereço</h1>
     </ion-list-header>
 
-    <button fill="outline" *ngFor="let item of items" (click)="nextPage(item)">
-      <h3>{{item.logradouro}}, {{item.numero}} </h3>
-      <!--Interpolação-->
-      {{item.complemento}}, {{item.bairro}}
-      <!--Interpolação-->
-      {{item.cidade.nome}}, {{item.cidade.estado.nome}}
-      <!--Interpolação-->
-    </button>
+
+
+
+    <ion-card *ngFor="let item of items" (click)="nextPage(item)">
+      <ion-card-header>
+        <ion-card-subtitle>Endereço</ion-card-subtitle>
+        <ion-card-title>{{item.cidade.nome}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{item.complemento}}, {{item.bairro}}
+        {{item.cidade.nome}}, {{item.cidade.estado.nome}}
+      </ion-card-content>
+    </ion-card>
+
 
   </ion-list>
 

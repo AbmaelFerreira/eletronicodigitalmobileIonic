@@ -68,5 +68,4 @@ export class PickAddressPage implements OnInit {
     this.router.navigate(['payment', { pedido: pedidoDTO }]);
     console.log(this.pedido);
   }
-
 }

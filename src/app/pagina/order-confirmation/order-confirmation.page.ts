@@ -1,3 +1,4 @@
+import { PedidoService } from './../../../services/domain/pedido-service';
 import { ClienteService } from './../../../services/domain/cliente.service';
 import { EnderecoDTO } from './../../../models/endereco.dto';
 import { ClienteDTO } from './../../../models/cliente.dto';
@@ -23,7 +24,8 @@ export class OrderConfirmationPage implements OnInit {
     private activateRoute: ActivatedRoute,
     public cartService: CartService,
     public clienteService: ClienteService,
-    private router: Router
+    private router: Router,
+    public pedidoService: PedidoService
   ) {
 
     this.pedido = JSON.parse(this.activateRoute.snapshot.paramMap.get('pedido'));
@@ -51,5 +53,22 @@ export class OrderConfirmationPage implements OnInit {
 
   total() {
     return this.cartService.total();
+  }
+  back() {
+    this.router.navigate(['cart']);
+
+  }
+
+  checkout() {
+    this.pedidoService.insert(this.pedido)
+      .subscribe(response => {
+        this.cartService.createOrClearCart();
+        console.log(response.headers.get('location'));
+      },
+        error => {
+          if (error.status == 403) {
+            this.router.navigate(['home']);
+          }
+        });
   }
 }
