@@ -3,6 +3,7 @@ import { ProdutoService } from './../../../services/domain/produto.service';
 import { ProdutoDTO } from './../../../models/produto.dto';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-produtos',
@@ -13,12 +14,14 @@ export class ProdutosPage implements OnInit {
 
 
   items: ProdutoDTO[];
+  loading: any;
 
   constructor(
 
     private activateRoute: ActivatedRoute,
     public produtoService: ProdutoService,
-    private router: Router
+    private router: Router,
+    public loadingController: LoadingController
   ) { }
 
   ionViewDidLoad() {
@@ -26,17 +29,19 @@ export class ProdutosPage implements OnInit {
   }
 
   ngOnInit() {
-
-
     let categoria_id = this.activateRoute.snapshot.paramMap.get('data');
-
+    this.presentLoading();
     this.produtoService.findByCategoria(categoria_id)
       .subscribe(response => {
+
         this.items = response['content'];
+        this.hideLoader();
+
         this.loadImageUrls();
+
       },
         error => {
-
+          this.loading.dismiss();
         });
   }
 
@@ -56,7 +61,35 @@ export class ProdutosPage implements OnInit {
     let detailData = JSON.stringify(produto_id);
 
     this.router.navigate(['produto-detail', { detailData }]);
+  }
 
+  // async presentLoading() {
+  //   this.loading = await this.loadingController.create({
+  //     cssClass: 'my-custom-class',
+  //     message: 'Aguarde...',
+  //     spinner: 'lines'
+  //   });
+
+  //   return this.loading.present();
+  // }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Aguarde...',
+      spinner: 'lines'
+    }).then((res) => {
+      res.present();
+    })
+  }
+
+  hideLoader() {
+
+    this.loadingController.dismiss().then((res) => {
+      console.log('Loading dismissed!', res);
+    }).catch((error) => {
+      console.log('error', error);
+    });
 
   }
 }
