@@ -29,19 +29,7 @@ export class ProdutosPage implements OnInit {
   }
 
   ngOnInit() {
-    let categoria_id = this.activateRoute.snapshot.paramMap.get('data');
-    this.presentLoading();
-    this.produtoService.findByCategoria(categoria_id)
-      .subscribe(response => {
-
-        this.items = response['content'];
-        this.loadImageUrls();
-        this.dismiss();
-
-      },
-        error => {
-          this.dismiss();
-        });
+    this.loadData();
   }
 
   loadImageUrls() {
@@ -75,5 +63,28 @@ export class ProdutosPage implements OnInit {
     setTimeout(() => {
       this.loadingController.dismiss();
     }, 1000);
+  }
+
+  doRefresh(event) {
+    this.loadData()
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+
+  loadData() {
+    let categoria_id = this.activateRoute.snapshot.paramMap.get('data');
+    this.presentLoading();
+    this.produtoService.findByCategoria(categoria_id)
+      .subscribe(response => {
+
+        this.items = response['content'];
+        this.loadImageUrls();
+        this.dismiss();
+
+      },
+        error => {
+          this.dismiss();
+        });
   }
 }
