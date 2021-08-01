@@ -14,7 +14,7 @@ export class ProdutosPage implements OnInit {
 
 
   items: ProdutoDTO[];
-  loading: any;
+
 
   constructor(
 
@@ -35,13 +35,12 @@ export class ProdutosPage implements OnInit {
       .subscribe(response => {
 
         this.items = response['content'];
-        this.hideLoader();
-
         this.loadImageUrls();
+        this.dismiss();
 
       },
         error => {
-          this.loading.dismiss();
+          this.dismiss();
         });
   }
 
@@ -63,33 +62,18 @@ export class ProdutosPage implements OnInit {
     this.router.navigate(['produto-detail', { detailData }]);
   }
 
-  // async presentLoading() {
-  //   this.loading = await this.loadingController.create({
-  //     cssClass: 'my-custom-class',
-  //     message: 'Aguarde...',
-  //     spinner: 'lines'
-  //   });
-
-  //   return this.loading.present();
-  // }
-
   async presentLoading() {
-    this.loading = await this.loadingController.create({
+    const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Aguarde...',
-      spinner: 'lines'
-    }).then((res) => {
-      res.present();
-    })
+      message: 'Please wait...'
+    });
+    await loading.present();
   }
 
-  hideLoader() {
+  dismiss() {
 
-    this.loadingController.dismiss().then((res) => {
-      console.log('Loading dismissed!', res);
-    }).catch((error) => {
-      console.log('error', error);
-    });
-
+    setTimeout(() => {
+      this.loadingController.dismiss();
+    }, 1000);
   }
 }
