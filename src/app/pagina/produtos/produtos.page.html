@@ -18,6 +18,8 @@
 
 
   <ion-content padding>
+
+
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
       <ion-fab-button navPush="cart" ion-fab mini [routerLink]="['/cart']" routerdirection="forward">
         <ion-icon name="cart"></ion-icon>
@@ -33,5 +35,10 @@
         <ion-badge color="primary" slot="end">{{item.preco | currency:'BRL':true:'1.2-2'}}</ion-badge>
       </ion-item>
     </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadDataInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
   </ion-content>
