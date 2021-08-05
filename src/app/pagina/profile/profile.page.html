@@ -1,17 +1,40 @@
 <ion-header>
-      <ion-toolbar color="primary">
-      <ion-menu-button slot="start"></ion-menu-button>
-      <ion-title>Profile</ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content >
-  
-  <ion-avatar  class="conteudo">
-      <img class="circle" [src]="cliente?.imageUrl || 'assets/img/avatar-blank.jpg'" >
-  </ion-avatar>
-  
+<ion-content>
 
-  <h2  text-center>{{cliente?.nome}}</h2>
-  <p  text-center>{{cliente?.email}}</p>
+  <ion-avatar class="conteudo">
+    <img class="circle" [src]="cliente?.imageUrl || 'assets/img/avatar-blank.jpg'">
+  </ion-avatar>
+
+
+  <h2 text-center>{{cliente?.nome}}</h2>
+  <p text-center>{{cliente?.email}}</p>
+
+  <ion-card>
+
+    <ion-card-header>
+      <ion-card-title>Enviar imagem de perfil</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngIf="picture">
+        <ion-avatar slot="end">
+          <img [src]="picture">
+        </ion-avatar>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <ion-button fill="outline" (click)="getCameraPicture()" [disabled]="cameraOn" color="secondary" expand="full">
+            Camera
+          </ion-button>
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+  </ion-card>
 </ion-content>

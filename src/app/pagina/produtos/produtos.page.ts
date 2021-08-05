@@ -60,12 +60,7 @@ export class ProdutosPage implements OnInit {
     await loading.present();
   }
 
-  dismiss() {
 
-    setTimeout(() => {
-      this.loadingController.dismiss();
-    }, 300);
-  }
 
   doRefresh(event) {
     this.page = 0;
@@ -97,6 +92,8 @@ export class ProdutosPage implements OnInit {
         });
   }
 
+
+
   loadDataInfinite(event) {
     this.page++;
     this.loadData();
@@ -106,6 +103,13 @@ export class ProdutosPage implements OnInit {
 
     }, 1000);
 
+  }
+
+  dismiss() {
+
+    setTimeout(() => {
+      this.loadingController.dismiss();
+    }, 300);
   }
 
 

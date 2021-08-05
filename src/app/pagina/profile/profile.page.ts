@@ -5,6 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteDTO } from 'src/models/cliente.dto';
 import { StorageService } from 'src/services/domain/storage.service';
 
+import { Injectable } from "@angular/core";
+import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -14,12 +17,16 @@ export class ProfilePage implements OnInit {
 
   //email: string; 
   cliente: ClienteDTO;
+  picture: string;
+  cameraOn: boolean = false;
+
 
   constructor(
     public storage: StorageService,
     public clienteService: ClienteService,
     public menu: MenuController,
-    public nav: NavController
+    public nav: NavController,
+    public camera: Camera
   ) { }
 
   ionViewWillEnter() {
@@ -53,5 +60,30 @@ export class ProfilePage implements OnInit {
       },
         error => {
         });
+  }
+
+
+  getCameraPicture() {
+    this.cameraOn = true;
+
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        // Do something with the new photo
+        this.picture = 'data:image/png;base64,' + imageData;
+        this.cameraOn = false;
+      },
+      (err) => {
+        // Handle error
+        console.log("Camera issue: " + err);
+      }
+    );
+
   }
 }
