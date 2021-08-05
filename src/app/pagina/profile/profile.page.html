@@ -22,14 +22,25 @@
     </ion-card-header>
     <ion-list>
       <ion-item *ngIf="picture">
-        <ion-avatar slot="end">
-          <img [src]="picture">
-        </ion-avatar>
+        <!-- <ion-avatar slot="end"> -->
+        <!-- <img [src]="picture"> -->
+        <!-- </ion-avatar> -->
+
+        <ion-card>
+          <ion-card-header color="primary">
+            <ion-card-title>Minha Foto</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-img [src]="picture"></ion-img>
+          </ion-card-content>
+        </ion-card>
+
       </ion-item>
 
       <ion-item>
         <ion-label>
-          <ion-button fill="outline" (click)="getCameraPicture()" [disabled]="cameraOn" color="secondary" expand="full">
+          <ion-button fill="solid" (click)="getCameraPicture()" [disabled]="cameraOn" color="secondary" expand="full">
             Camera
           </ion-button>
         </ion-label>
