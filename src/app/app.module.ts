@@ -21,6 +21,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptorProvider } from 'src/ineterceptor/auth-interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaymentPage } from './pagina/payment/payment.page';
+import { ImageUtilService } from 'src/services/image-util.service';
 
 @NgModule({
   declarations: [AppComponent, PaymentPage],
@@ -49,7 +50,8 @@ import { PaymentPage } from './pagina/payment/payment.page';
       multi: true
     },
     ProdutoService,
-    CartService
+    CartService,
+    ImageUtilService
 
   ],
   bootstrap: [AppComponent]

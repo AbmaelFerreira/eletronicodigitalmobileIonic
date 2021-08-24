@@ -41,7 +41,9 @@ export class ProdutosPage implements OnInit {
         .subscribe(response => {
           item.imageUrl = `${API_CONFIG.backetBaseUrl}/prod${item.id}-small.jpg`;
         },
-          error => { });
+          error => {
+            console.log("Não encotrei a imagem")
+          });
     }
   }
 

@@ -34,6 +34,10 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+  loadData() {
     let localUser = this.storage.getLocalUser();
     if (localUser && localUser.email) {
       //this.email = localUser.email;
@@ -51,6 +55,7 @@ export class ProfilePage implements OnInit {
     else {
       this.nav.navigateForward('/home');
     }
+
   }
 
   getImageIfExists() {
@@ -85,5 +90,21 @@ export class ProfilePage implements OnInit {
       }
     );
 
+  }
+
+  sendPicture() {
+    this.clienteService.uploadPicture(this.picture)
+      .subscribe(response => {
+
+        this.picture = null;
+        this.loadData();
+      },
+        error => {
+
+        });
+  }
+
+  cancel() {
+    this.picture = null;
   }
 }
